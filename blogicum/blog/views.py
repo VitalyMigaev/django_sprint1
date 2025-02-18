@@ -57,11 +57,11 @@ def detail(request, id):
 
 def category_posts(request, category_slug):
     filtered_posts = [
-        post for post in posts 
+        post for post in posts
         if post['category'].lower() == category_slug.lower()
     ]
     return render(
-        request, 
-        'category.html', 
+        request,
+        'category.html',
         {'posts': filtered_posts, 'category_slug': category_slug}
     )
