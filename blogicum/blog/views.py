@@ -50,9 +50,9 @@ def index(request):
     return render(request, 'blog/index.html')
 
 
-def detail(request, id):
-    post = get_object_or_404(Post, id=id)
-    return render(request, 'blog/detail.html', {'post': post})
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def category_posts(request, category_slug):
