@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Post
 
 posts = [
     {
@@ -45,23 +44,13 @@ posts = [
     },
 ]
 
-
 def index(request):
-    return render(request, 'blog/index.html')
+    return render(request, 'index.html', {'posts': posts})
 
-
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    return render(request, 'blog/post_detail.html', {'post': post})
-
+def post_detail(request, id):
+    post = get_object_or_404(posts, id=id)
+    return render(request, 'detail.html', {'post': post})
 
 def category_posts(request, category_slug):
-    filtered_posts = [
-        post for post in posts
-        if post['category'].lower() == category_slug.lower()
-    ]
-    return render(
-        request,
-        'category.html',
-        {'posts': filtered_posts, 'category_slug': category_slug}
-    )
+    filtered_posts = [post for post in posts if post['category'] == category_slug]
+    return render(request, 'category.html', {'posts': filtered_posts})
