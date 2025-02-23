@@ -49,8 +49,8 @@ def index(request):
 
 def post_detail(request, id):
     post = get_object_or_404(posts, id=id)
-    return render(request, 'detail.html', {'post': post})
+    return render(request, 'detail.html', {'posts': post})
 
 def category_posts(request, category_slug):
-    filtered_posts = [post for post in posts if post['category'] == category_slug]
+    filtered_posts = [post for posts in posts if posts['category'] == category_slug]
     return render(request, 'category.html', {'posts': filtered_posts})

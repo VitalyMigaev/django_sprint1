@@ -21,10 +21,6 @@ from django.contrib import admin
 from django.urls import path, include
 from pages.views import index, about, rules, detail, category
 
-from django.contrib import admin
-from django.urls import path, include
-from pages.views import index, about, rules, detail, category
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', index, name='index'),
