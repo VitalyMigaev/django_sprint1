@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse, Http404
+from django.http import Http404
 
 
 posts = [
@@ -59,5 +59,5 @@ def post_detail(request, id):
     raise Http404(f"Post with id {id} does not exist.")
 
 
-def category_posts(request, category_slug): 
+def category_posts(request, category_slug):
     return render(request, 'blog/category.html', {'category': category_slug})
