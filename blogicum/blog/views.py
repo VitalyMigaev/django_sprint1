@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 posts = [
@@ -46,21 +46,18 @@ posts = [
     },
 ]
 
+posts_index = {post["id"]: post for post in posts}
+
 
 def index(request):
-    return render(request, 'blog/index.html', {'posts': posts})
+    return render(request, 'blog/index.html', {'posts': reversed(posts)})
 
 
 def post_detail(request, id):
-    post = next((post for post in posts if post['id'] == id), None)
-    if post is None:
-        return HttpResponse('Пост не найден', status=404)
-    return render(request, 'blog/detail.html', {'post': post})
+    if id in posts_index:
+        return render(request, 'blog/detail.html', {'post': posts[id]})
+    raise Http404(f"Post with id {id} does not exist.")
 
 
-def category_posts(request, category_slug):
-    filtered_posts = [
-        post for post in posts
-        if post['category'] == category_slug
-    ]
-    return render(request, 'blog/category.html', {'posts': filtered_posts})
+def category_posts(request, category_slug): 
+    return render(request, 'blog/category.html', {'category': category_slug})
