@@ -13,24 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# blogicum/urls.py
-
-# blogicum/urls.py
-
 from django.contrib import admin
-from django.urls import path, include
-from pages.views import index, about, rules, detail, category
+
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('pages/', index, name='index'),
-    path('pages/index.html', index, name='index_html'),
-    path('pages/about/', about, name='about'),
-    path('pages/about.html', about, name='about_html'),
-    path('pages/rules/', rules, name='rules'),
-    path('pages/rules.html', rules, name='rules_html'),
-    path('pages/detail/', detail, name='detail'),
-    path('pages/detail.html', detail, name='detail_html'),
-    path('pages/category/', category, name='category'),
-    path('pages/category.html', category, name='category_html'),
+    path('', include('blog.urls', namespace='blog')),
+    path('pages/', include('pages.urls', namespace='pages')),
 ]

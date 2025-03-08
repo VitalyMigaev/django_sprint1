@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+
+from django.http import HttpResponse
 
 
 posts = [
@@ -44,13 +46,18 @@ posts = [
     },
 ]
 
+
 def index(request):
-    return render(request, 'index.html', {'posts': posts})
+    return render(request, 'blog/index.html', {'posts': posts})
+
 
 def post_detail(request, id):
-    post = get_object_or_404(posts, id=id)
-    return render(request, 'detail.html', {'posts': post})
+    post = next((post for post in posts if post['id'] == id), None)
+    if post is None:
+        return HttpResponse('Пост не найден', status=404)
+    return render(request, 'blog/detail.html', {'post': post})
+
 
 def category_posts(request, category_slug):
-    filtered_posts = [post for posts in posts if posts['category'] == category_slug]
-    return render(request, 'category.html', {'posts': filtered_posts})
+    filtered_posts = [post for post in posts if post['category'] == category_slug]
+    return render(request, 'blog/category.html', {'posts': filtered_posts})
