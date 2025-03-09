@@ -3,28 +3,28 @@
 {% block title %}Лента записей{% endblock %}
 
 {% block content %}
-  <h1>Лента записей</h1>                        
-    <!-- Перебираем в цикле все посты -->
-  <hr> <ul>
-    {% for post in posts %}
-    <article>
+  <h1>Лента записей</h1>
+  <hr>
+  {% for post in posts %}
+  <article>
+    <ul>
       <li>
-          Место: {{ post.location }}              
-        </li>
-        <li>
-          Дата: {{ post.date }}
-        </li>
-        <li>
-          Категория: <a href="{% url 'blog:category_posts' post.category|slugify %}">{{ post.category }}</a>
-        </li>
-        <p>
-        {{ post.text|truncatewords:10 }}
-        </p>
-      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
-    </article>
-    {% if not forloop.last %}
-        <hr>
-      {% endif %}
-    {% endfor %} 
-  </ul>
+        Место: {{ post.location }}              
+      </li>
+      <li>
+        Дата: {{ post.date }}
+      </li>
+      <li>
+        Категория: <a href="{% url 'blog:category_posts' post.category|slugify %}">{{ post.category }}</a>
+      </li>
+    </ul>
+    <p>
+      {{ post.text|truncatewords:10 }}
+    </p>
+    <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
+  </article>
+  {% if not forloop.last %}
+    <hr>
+  {% endif %}
+  {% endfor %}
 {% endblock %}
