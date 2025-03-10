@@ -51,10 +51,12 @@ posts_index = {post["id"]: post for post in posts}
 def index(request):
     return render(request, 'blog/index.html', {'posts': reversed(posts)})
 
+posts_by_id = {post["id"]: post for post in posts}
 
 def post_detail(request, id):
-    if id in posts_index:
-        return render(request, 'blog/detail.html', {'post': posts[id]})
+    post = posts_by_id.get(id)
+    if post is not None:
+        return render(request, 'blog/detail.html', {'post': post})
     raise Http404(f"Post with id {id} does not exist.")
 
 
