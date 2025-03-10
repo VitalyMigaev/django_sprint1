@@ -6,25 +6,25 @@
   <h1>Лента записей</h1>
   <hr>
   {% for post in posts %}
-  <article>
-    <ul>
-      <li>
-        Место: {{ post.location }}              
-      </li>
-      <li>
-        Дата: {{ post.date }}
-      </li>
-      <li>
-        Категория: <a href="{% url 'blog:category_posts' post.category|slugify %}">{{ post.category }}</a>
-      </li>
-    </ul>
-    <p>
-      {{ post.text|truncatewords:10 }}
-    </p>
-    <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
-  </article>
-  {% if not forloop.last %}
-    <hr>
-  {% endif %}
+    <article>
+      <ul>
+        <li>
+          Место: {{ post.location }}              
+        </li>
+        <li>
+          Дата: {{ post.date }}
+        </li>
+        <li>
+          Категория: <a href="{% url 'blog:category_posts' post.category|slugify %}">{{ post.category }}</a>
+        </li>
+      </ul>
+      <p>
+        {{ post.text|truncatewords:10 }}
+      </p>
+      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
+    </article>
+    {% if not forloop.last %}
+  <hr>
+    {% endif %}
   {% endfor %}
 {% endblock %}
