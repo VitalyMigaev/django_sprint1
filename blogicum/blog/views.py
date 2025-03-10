@@ -51,7 +51,9 @@ posts_index = {post["id"]: post for post in posts}
 def index(request):
     return render(request, 'blog/index.html', {'posts': reversed(posts)})
 
+
 posts_by_id = {post["id"]: post for post in posts}
+
 
 def post_detail(request, id):
     post = posts_by_id.get(id)
